@@ -1,0 +1,38 @@
+{
+  "compilerOptions": {
+    "module": "CommonJS",
+    "esModuleInterop": true,
+    "target": "ES2020",
+    "moduleResolution": "node",
+    "sourceMap": true,
+    "outDir": "dist",
+    "baseUrl": "./",
+    "paths": {
+      "@/*": ["src/*"]
+    },
+    "plugins": [
+      {
+        "transform": "typescript-transform-paths",
+        "useRootDirs": true,
+      },
+      {
+        "transform":"typescript-transform-paths",
+        "useRootDirs": true,
+        "afterDeclarations": true
+      }
+    ]
+  },
+  "lib": ["ES2020"],
+  "include": [
+    "src/types/*.d.ts",
+  ],
+  "ts-node": {
+    "files": true,
+    "require": [ "typescript-transform-paths/register" ],
+    "transpileOnly": true
+  },
+  "files": [
+    "src/index.ts",
+    "src/types/global.d.ts",
+  ],
+}
