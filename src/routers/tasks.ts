@@ -44,6 +44,17 @@ router.post('/tasks/:id/subtask/add', auth, checkTask, async (req: UserRequest, 
   }
 })
 
+router.patch('/tasks/:id/subtask/toggle', auth, checkTask, async (req: UserRequest, res: UserResponse) => {
+  try {
+    const subTaskIndex = req.task.subtasks.findIndex(subtask => subtask.id === req.body.subtaskId)
+    req.task.subtasks[subTaskIndex].completed = !req.task.subtasks[subTaskIndex].completed
+    await req.task.save()
+    res.send(req.task)
+  } catch (error) {
+    res.status(500).send(error)
+  }
+})
+
 router.delete('/tasks/:id/subtask/remove', auth, checkTask, async (req: UserRequest, res: UserResponse) => {
   try {
     await req.task.subtasks.id(req.body.taskId).deleteOne()
